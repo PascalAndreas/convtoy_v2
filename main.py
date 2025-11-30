@@ -310,7 +310,8 @@ class ConvolutionArt:
                 "value_attr": config["value_attr"],
                 "min_value": min_val,
                 "max_value": max_val,
-                "target_obj": target
+                "target_obj": target,
+                "is_int": isinstance(value, int) and not isinstance(value, bool),
             })
         
         return sliders
@@ -483,6 +484,8 @@ class ConvolutionArt:
             min_val = slider["min_value"]
             max_val = slider["max_value"]
             value = min_val + slider_pos * (max_val - min_val)
+            if slider.get("is_int"):
+                value = int(round(value))
             setattr(slider["target_obj"], slider["value_attr"], value)
     
     def take_screenshot(self):

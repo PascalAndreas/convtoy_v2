@@ -1,5 +1,5 @@
 from main import ConvolutionArt
-from souls import Soul, Seraphim, Cherubim, Pandemonium
+from souls import Soul, Seraphim, Cherubim, Pandemonium, Lenia, InceptionSoul, CryptoLenia
 
 # ===== Choose Your Soul =====
 
@@ -46,14 +46,62 @@ pandemonium = Pandemonium(
     use_expmap=False,
 )
 
+# Option 4: Lenia - Smooth-life waves on the sphere
+lenia = Lenia(
+    radii=(3, 7, 11),
+    growth_peak=0.35,
+    growth_width=0.12,
+    growth_strength=1.4,
+    feedback=0.35,
+    jitter_strength=0.08,
+    warp_roll=2,
+    drift_magnitude=0.04,
+    momentum=0.65,
+    sphere_dim=10,
+    step_size=0.35,
+    use_expmap=True,
+)
+
+# Option 5: InceptionSoul - Inception blocks inside a U-Net scaffold
+inception = InceptionSoul(
+    depth=3,
+    base_channels=16,
+    bottleneck_blocks=2,
+    drift_magnitude=0.006,
+    momentum=0.7,
+    sphere_dim=4,
+    step_size=0.3,
+    skip_strength=0.6,
+    nonlinearity_strength=1.0,
+    use_expmap=True,
+)
+
+# Option 6: CryptoLenia - Rotating anisotropic Lenia weirdness
+cryptolenia = CryptoLenia(
+    sizes=(5, 9, 13),
+    stretch=2.2,
+    angle_speed=0.35,
+    band_center=0.4,
+    band_width=0.18,
+    growth_gain=1.3,
+    feedback=0.4,
+    jitter=0.12,
+    roll_max=3,
+    drift_magnitude=0.004,
+    momentum=0.6,
+    sphere_dim=4,
+    step_size=0.32,
+    use_expmap=True,
+)
+
 # Select which soul to use
-soul = pandemonium  # or cherubim / seraphim
+soul = cryptolenia  # or lenia / pandemonium / cherubim / seraphim / inception
 
 # Choose mapping method:
 # - "orthonormal": Fast, stable, good for any dimension (recommended)
 # - "hsv": More perceptually uniform colors
 # - "adaptive_pca": Auto-adjusts to maximize visible variance
-mapping_method = "orthonormal"
+mapping_method = "adaptive_pca"
 
 app = ConvolutionArt(
     conv_processor=soul, 
